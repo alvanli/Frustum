@@ -8,7 +8,6 @@ from model_util_old import FrustumPointNetLoss
 import argparse
 import importlib
 import time
-import ipdb
 import numpy as np
 import random
 import shutil
@@ -20,7 +19,7 @@ import provider_fpointnet as provider
 
 parser = argparse.ArgumentParser()
 ###parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
-parser.add_argument('--model', default='frustum_pointnets_v1_old', help='Model name [default: frustum_pointnets_v1]')
+parser.add_argument('--model', default='frustum_pointnets_v1_pp', help='Model name [default: frustum_pointnets_v1]')
 parser.add_argument('--log_dir', default='log', help='Log dir [default: log]')
 parser.add_argument('--num_point', type=int, default=1024, help='Point Number [default: 2048]')
 parser.add_argument('--max_epoch', type=int, default=150, help='Epoch to run [default: 201]')
