@@ -205,7 +205,7 @@ class FrustumPointNetv1(nn.Module):
                  point_cloud_masking(pts, logits)###logits.detach()
 
         # T-Net
-        object_pts_xyz = object_pts_xyz#.cuda()
+        object_pts_xyz = object_pts_xyz.cuda()
         center_delta = self.STN(object_pts_xyz,one_hot_vec)#(32,3)
         stage1_center = center_delta + mask_xyz_mean#(32,3)
 

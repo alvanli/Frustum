@@ -181,7 +181,7 @@ if __name__ == '__main__':
     #     overwritten_data_path='kitti/frustum_'+'caronly'+'_'+'val'+'.pickle')  # or carpedcyc
     TRAIN_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split='train',
         rotate_to_center=True, one_hot=True,
-        overwritten_data_path='kitti/frustum_'+'carpedcyc'+'_'+'train'+'.pickle')  # or carpedcyc
+        overwritten_data_path='/mnt/wato-drive/KITTI/pickle/frustum_'+'carpedcyc'+'_'+'train'+'.pickle')  # or carpedcyc
     train_dataloader = DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE, shuffle=False, \
                                  num_workers=8, pin_memory=True)
 

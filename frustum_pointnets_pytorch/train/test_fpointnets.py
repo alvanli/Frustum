@@ -101,7 +101,7 @@ test_dataloader = DataLoader(TEST_DATASET, batch_size=BATCH_SIZE, shuffle=False,
 if FLAGS.model == 'frustum_pointnets_v1':
     from frustum_pointnets_v1_old import FrustumPointNetv1
 
-    FrustumPointNet = FrustumPointNetv1(n_classes=n_classes,n_channel=4) #.cuda()
+    FrustumPointNet = FrustumPointNetv1(n_classes=n_classes,n_channel=4).cuda()
 
 # Pre-trained Model
 pth = torch.load(FLAGS.model_path, map_location=torch.device('cpu'))
@@ -233,15 +233,15 @@ def test_one_epoch(model, loader):
         print(data)
         input()
 
-        batch_data = batch_data.transpose(2, 1).float()#.cuda()
-        batch_label = batch_label.float()#.cuda()
-        batch_center = batch_center.float()#.cuda()
-        batch_hclass = batch_hclass.float()#.cuda()
-        batch_hres = batch_hres.float()#.cuda()
-        batch_sclass = batch_sclass.float()#.cuda()
-        batch_sres = batch_sres.float()#.cuda()
-        batch_rot_angle = batch_rot_angle.float()#.cuda()
-        batch_one_hot_vec = batch_one_hot_vec.float()#.cuda()
+        batch_data = batch_data.transpose(2, 1).float().cuda()
+        batch_label = batch_label.float().cuda()
+        batch_center = batch_center.float().cuda()
+        batch_hclass = batch_hclass.float().cuda()
+        batch_hres = batch_hres.float().cuda()
+        batch_sclass = batch_sclass.float().cuda()
+        batch_sres = batch_sres.float().cuda()
+        batch_rot_angle = batch_rot_angle.float().cuda()
+        batch_one_hot_vec = batch_one_hot_vec.float().cuda()
 
         # 2. Eval one batch
         model = model.eval()
@@ -491,10 +491,10 @@ def test_from_rgb_detection(model, loader):
         batch_one_hot_vec = data
 
         # return point_set, rot_angle, self.prob_list[index], one_hot_vec
-        batch_data = batch_data.transpose(2, 1).float()#.cuda()
-        batch_rot_angle = batch_rot_angle.float()#.cuda()
-        batch_rgb_prob = batch_rgb_prob.float()#.cuda()
-        batch_one_hot_vec = batch_one_hot_vec.float()#.cuda()
+        batch_data = batch_data.transpose(2, 1).float().cuda()
+        batch_rot_angle = batch_rot_angle.float().cuda()
+        batch_rgb_prob = batch_rgb_prob.float().cuda()
+        batch_one_hot_vec = batch_one_hot_vec.float().cuda()
 
         # 2. Eval one batch
         model = model.eval()

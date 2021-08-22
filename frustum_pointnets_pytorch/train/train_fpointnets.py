@@ -85,22 +85,11 @@ LOG_FOUT.write(str(FLAGS)+'\n')
 if FLAGS.dataset == 'kitti':
     TRAIN_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split=FLAGS.train_sets,
         rotate_to_center=True, random_flip=True, random_shift=True, one_hot=True,
-        overwritten_data_path='kitti/frustum_'+FLAGS.objtype+'_'+FLAGS.train_sets+'.pickle')
+        overwritten_data_path='/mnt/wato-drive/KITTI/pickle/frustum_'+FLAGS.objtype+'_'+FLAGS.train_sets+'.pickle')
     TEST_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split=FLAGS.val_sets,
         rotate_to_center=True, one_hot=True,
-        overwritten_data_path='kitti/frustum_'+FLAGS.objtype+'_'+FLAGS.val_sets+'.pickle')
-elif FLAGS.dataset == 'nuscenes2kitti':
-    SENSOR = FLAGS.sensor
-    overwritten_data_path_prefix = 'nuscenes2kitti/frustum_' +FLAGS.objtype + '_' + SENSOR + '_'
-    TRAIN_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split=FLAGS.train_sets,
-        rotate_to_center=True, random_flip=True, random_shift=True, one_hot=True,
-        overwritten_data_path=overwritten_data_path_prefix + '_'+FLAGS.train_sets+'.pickle')
-    TEST_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split=FLAGS.val_sets,
-        rotate_to_center=True, one_hot=True,
-        overwritten_data_path=overwritten_data_path_prefix + '_'+FLAGS.val_sets+'.pickle')
-else:
-    print('Unknown dataset: %s' % (FLAGS.dataset))
-    exit(-1)
+        overwritten_data_path='/mnt/wato-drive/KITTI/pickle/frustum_'+FLAGS.objtype+'_'+FLAGS.val_sets+'.pickle')
+
 train_dataloader = DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE, shuffle=True,\
                                 num_workers=8, pin_memory=True)
 test_dataloader = DataLoader(TEST_DATASET, batch_size=BATCH_SIZE, shuffle=False,\
@@ -152,15 +141,15 @@ def test_one_epoch(model, loader):
         batch_sclass, batch_sres, \
         batch_rot_angle, batch_one_hot_vec = data
 
-        batch_data = batch_data.transpose(2, 1).float() #.cuda()
-        batch_label = batch_label.float() #.cuda()
-        batch_center = batch_center.float() #.cuda()
-        batch_hclass = batch_hclass.float() #.cuda()
-        batch_hres = batch_hres.float() #.cuda()
-        batch_sclass = batch_sclass.float() #.cuda()
-        batch_sres = batch_sres.float() #.cuda()
-        batch_rot_angle = batch_rot_angle.float() #.cuda()
-        batch_one_hot_vec = batch_one_hot_vec.float() #.cuda()
+        batch_data = batch_data.transpose(2, 1).float().cuda()
+        batch_label = batch_label.float().cuda()
+        batch_center = batch_center.float().cuda()
+        batch_hclass = batch_hclass.float().cuda()
+        batch_hres = batch_hres.float().cuda()
+        batch_sclass = batch_sclass.float().cuda()
+        batch_sres = batch_sres.float().cuda()
+        batch_rot_angle = batch_rot_angle.float().cuda()
+        batch_one_hot_vec = batch_one_hot_vec.float().cuda()
 
         model = model.eval()
 
@@ -264,6 +253,7 @@ def train():
     SEED = 1
     np.random.seed(SEED)
     torch.manual_seed(SEED)
+    torch.cuda.manual_seed_all(SEED)
     random.seed(SEED)
     torch.backends.cudnn.deterministic = True
     blue = lambda x: '\033[94m' + x + '\033[0m'
@@ -271,11 +261,11 @@ def train():
     # set model
     if FLAGS.model == 'frustum_pointnets_v1_old':
         from models.frustum_pointnets_v1_old import FrustumPointNetv1
-        FrustumPointNet = FrustumPointNetv1(n_classes=n_classes) #.cuda()
+        FrustumPointNet = FrustumPointNetv1(n_classes=n_classes).cuda()
 
     if FLAGS.model == "frustum_pointnets_v1":
         from models.frustum_pointnets_v1 import FrustumPointNetv1
-        FrustumPointNet = FrustumPointNetv1(n_classes=NUM_CLASSES,n_channel=NUM_CHANNEL) #.cuda()
+        FrustumPointNet = FrustumPointNetv1(n_classes=NUM_CLASSES,n_channel=NUM_CHANNEL).cuda()
     # load pre-trained model
     if FLAGS.ckpt:
         ckpt = torch.load(FLAGS.ckpt)
@@ -358,15 +348,15 @@ def train():
             batch_sclass, batch_sres, \
             batch_rot_angle, batch_one_hot_vec = data
 
-            batch_data = batch_data.transpose(2,1).float() #.cuda()
-            batch_label = batch_label.float() #.cuda()
-            batch_center = batch_center.float() #.cuda()
-            batch_hclass = batch_hclass.long() #.cuda()
-            batch_hres = batch_hres.float() #.cuda()
-            batch_sclass = batch_sclass.long() #.cuda()
-            batch_sres = batch_sres.float() #.cuda()
-            batch_rot_angle = batch_rot_angle.float() #.cuda()###Not Used?
-            batch_one_hot_vec = batch_one_hot_vec.float() #.cuda()
+            batch_data = batch_data.transpose(2, 1).float().cuda()
+            batch_label = batch_label.float().cuda()
+            batch_center = batch_center.float().cuda()
+            batch_hclass = batch_hclass.float().cuda()
+            batch_hres = batch_hres.float().cuda()
+            batch_sclass = batch_sclass.float().cuda()
+            batch_sres = batch_sres.float().cuda()
+            batch_rot_angle = batch_rot_angle.float().cuda()
+            batch_one_hot_vec = batch_one_hot_vec.float().cuda()
 
             optimizer.zero_grad()
             FrustumPointNet = FrustumPointNet.train()
