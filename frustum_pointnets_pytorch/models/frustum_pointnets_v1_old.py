@@ -79,14 +79,14 @@ class PointNetInstanceSeg(nn.Module):
         '''
         bs = pts.size()[0]
         n_pts = pts.size()[2]
-        print("pts.size(): ", pts.size())
+        # print("pts.size(): ", pts.size())
         out1 = F.relu(self.bn1(self.conv1(pts))) # bs,64,n
         out2 = F.relu(self.bn2(self.conv2(out1))) # bs,64,n
         out3 = F.relu(self.bn3(self.conv3(out2))) # bs,64,n
         out4 = F.relu(self.bn4(self.conv4(out3)))# bs,128,n
         out5 = F.relu(self.bn5(self.conv5(out4)))# bs,1024,n
         global_feat = torch.max(out5, 2, keepdim=True)[0] #bs,1024,1
-        print("glohal_feat.size()", global_feat.size())
+        # print("glohal_feat.size()", global_feat.size())
 
         expand_one_hot_vec = one_hot_vec.view(bs,-1,1)#bs,3,1
         expand_global_feat = torch.cat([global_feat, expand_one_hot_vec],1)#bs,1027,1
@@ -104,7 +104,7 @@ class PointNetInstanceSeg(nn.Module):
         x = self.dconv5(x)#bs, 2, n
 
         seg_pred = x.transpose(2,1).contiguous()#bs, n, 2
-        print("seg_pred.size()", seg_pred.size())
+        # print("seg_pred.size()", seg_pred.size())
         return seg_pred
 
 class PointNetEstimation(nn.Module):
