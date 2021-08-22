@@ -1,0 +1,40 @@
+Namespace(batch_size=32, ckpt=None, dataset='kitti', debug=False, decay_rate=0.7, decay_step=20, learning_rate=0.001, log_dir='log', max_epoch=150, model='frustum_pointnets_v1_old', momentum=0.9, name='default', no_intensity=False, num_point=1024, objtype='caronly', optimizer='adam', restore_model_path=None, return_all_loss=False, sensor='CAM_FRONT', train_sets='train', val_sets='val', weight_decay=0.0)
+pid: 5500
+**** EPOCH 001 ****
+Epoch 1/150:
+[1: 1850/1851] train loss: 0.437176
+segmentation accuracy: 0.814272
+box IoU(ground/3D): 0.540595/0.480471
+box estimation accuracy (IoU=0.7): 0.202078
+[1] [94mtest[0m loss: 0.219141
+[94mtest[0m segmentation accuracy: 0.854383
+[94mtest[0m box IoU(ground/3D): 0.665069/0.603480
+[94mtest[0m box estimation accuracy (IoU=0.7): 0.419285
+learning rate: 0.001000
+Best Test acc: 0.419285(Epoch 1)
+**** EPOCH 002 ****
+Epoch 2/150:
+[2: 1850/1851] train loss: 0.257824
+segmentation accuracy: 0.864717
+box IoU(ground/3D): 0.639529/0.579621
+box estimation accuracy (IoU=0.7): 0.362858
+[2] [94mtest[0m loss: 0.166099
+[94mtest[0m segmentation accuracy: 0.875445
+[94mtest[0m box IoU(ground/3D): 0.701509/0.626239
+[94mtest[0m box estimation accuracy (IoU=0.7): 0.430930
+learning rate: 0.001000
+Best Test acc: 0.430930(Epoch 2)
+**** EPOCH 003 ****
+Epoch 3/150:
+[3: 1850/1851] train loss: 0.216913
+segmentation accuracy: 0.875273
+box IoU(ground/3D): 0.666362/0.607277
+box estimation accuracy (IoU=0.7): 0.431045
+[3] [94mtest[0m loss: 0.278786
+[94mtest[0m segmentation accuracy: 0.854735
+[94mtest[0m box IoU(ground/3D): 0.669598/0.605973
+[94mtest[0m box estimation accuracy (IoU=0.7): 0.448955
+learning rate: 0.001000
+Best Test acc: 0.448955(Epoch 3)
+**** EPOCH 004 ****
+Epoch 4/150:

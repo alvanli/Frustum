@@ -1,0 +1,6 @@
+Namespace(cfg='cfgs/fpointnet/fpointnet_v1_kitti.yaml', debug=False, opts=[])
+pid: 75032
+**** cfg:cfgs/fpointnet/fpointnet_v1_kitti.yaml ****
+**** output_dir:log/fpointnet_v1_kitti_caronly_fromgt/xyzr ****
+**** EPOCH 001 ****
+Epoch 1/150:
