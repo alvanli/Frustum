@@ -75,7 +75,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
                 Each point in the point-cloud MUST
                 be formated as (x, y, z, features...)
         """
-        xyz, features = pointcloud.contiguous(), features.contiguous()
+        xyz, features = pointcloud.contiguous(), torch.zeros_like(pointcloud) #features.contiguous()
         # xyz, features = self._break_up_pc(pointcloud)
         print("xyz: ", xyz.size(), "features", features if features is None else features.size())
 
