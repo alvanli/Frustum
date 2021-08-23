@@ -52,7 +52,7 @@ lr_clip = 1e-5
 bnm_clip = 1e-2
 
 
-class PointNet2ClassificationSSG(pl.LightningModule):
+class PointNet2ClassificationSSG(nn.Module):
     def __init__(self, hparams):
         super().__init__()
 
@@ -60,7 +60,6 @@ class PointNet2ClassificationSSG(pl.LightningModule):
 
         self._build_model()
 
-    def _build_model(self):
         self.SA_modules = nn.ModuleList()
         self.SA_modules.append(
             PointnetSAModule(

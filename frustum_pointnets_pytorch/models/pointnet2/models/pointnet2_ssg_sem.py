@@ -9,7 +9,9 @@ from pointnet2.models.pointnet2_ssg_cls import PointNet2ClassificationSSG
 
 FEATURE_N = 3
 class PointNet2SemSegSSG(PointNet2ClassificationSSG):
-    def _build_model(self):
+    def __init__(self):
+        super(PointNet2SemSegSSG, self).__init__()
+
         self.SA_modules = nn.ModuleList()
         self.SA_modules.append(
             PointnetSAModule(
