@@ -12,6 +12,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
     def __init__(self):
         super(PointNet2SemSegSSG, self).__init__()
 
+        self.use_xyz = True
         self.SA_modules = nn.ModuleList()
         self.SA_modules.append(
             PointnetSAModule(
@@ -19,7 +20,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
                 radius=0.1,
                 nsample=32,
                 mlp=[FEATURE_N, 32, 32, 64],
-                use_xyz=self.hparams["model.use_xyz"],
+                use_xyz=self.use_xyz,
             )
         )
         self.SA_modules.append(
@@ -28,7 +29,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
                 radius=0.2,
                 nsample=32,
                 mlp=[64, 64, 64, 128],
-                use_xyz=self.hparams["model.use_xyz"],
+                use_xyz=self.use_xyz,
             )
         )
         self.SA_modules.append(
@@ -37,7 +38,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
                 radius=0.4,
                 nsample=32,
                 mlp=[128, 128, 128, 256],
-                use_xyz=self.hparams["model.use_xyz"],
+                use_xyz=self.use_xyz,
             )
         )
         self.SA_modules.append(
@@ -46,7 +47,7 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
                 radius=0.8,
                 nsample=32,
                 mlp=[256, 256, 256, 512],
-                use_xyz=self.hparams["model.use_xyz"],
+                use_xyz=self.use_xyz,
             )
         )
 
@@ -97,6 +98,6 @@ class PointNet2SemSegSSG(PointNet2ClassificationSSG):
         print("out", out.size())
         return out
 
-    def prepare_data(self):
-        self.train_dset = Indoor3DSemSeg(self.hparams["num_points"], train=True)
-        self.val_dset = Indoor3DSemSeg(self.hparams["num_points"], train=False)
+    # def prepare_data(self):
+    #     self.train_dset = Indoor3DSemSeg(self.hparams["num_points"], train=True)
+    #     self.val_dset = Indoor3DSemSeg(self.hparams["num_points"], train=False)
