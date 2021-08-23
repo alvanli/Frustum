@@ -1,8 +1,6 @@
-import pytorch_lightning as pl
 import torch
 import torch.nn as nn
 from pointnet2_ops.pointnet2_modules import PointnetFPModule, PointnetSAModule
-from torch.utils.data import DataLoader
 
 from pointnet2.data import Indoor3DSemSeg
 from pointnet2.models.pointnet2_ssg_cls import PointNet2ClassificationSSG

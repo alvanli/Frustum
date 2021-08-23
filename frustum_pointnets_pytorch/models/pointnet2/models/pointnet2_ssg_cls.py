@@ -56,7 +56,7 @@ class PointNet2ClassificationSSG(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self._build_model()
+        # self._build_model()
         self.use_xyz = True
 
         self.SA_modules = nn.ModuleList()
@@ -120,41 +120,41 @@ class PointNet2ClassificationSSG(nn.Module):
 
         return self.fc_layer(features.squeeze(-1))
 
-    def training_step(self, batch, batch_idx):
-        pc, labels = batch
+    # def training_step(self, batch, batch_idx):
+    #     pc, labels = batch
+    #
+    #     logits = self.forward(pc)
+    #     loss = F.cross_entropy(logits, labels)
+    #     with torch.no_grad():
+    #         acc = (torch.argmax(logits, dim=1) == labels).float().mean()
+    #
+    #     log = dict(train_loss=loss, train_acc=acc)
+    #
+    #     return dict(loss=loss, log=log, progress_bar=dict(train_acc=acc))
 
-        logits = self.forward(pc)
-        loss = F.cross_entropy(logits, labels)
-        with torch.no_grad():
-            acc = (torch.argmax(logits, dim=1) == labels).float().mean()
-
-        log = dict(train_loss=loss, train_acc=acc)
-
-        return dict(loss=loss, log=log, progress_bar=dict(train_acc=acc))
-
-    def validation_step(self, batch, batch_idx):
-        pc, labels = batch
-
-        logits = self.forward(pc)
-        loss = F.cross_entropy(logits, labels)
-        acc = (torch.argmax(logits, dim=1) == labels).float().mean()
-
-        return dict(val_loss=loss, val_acc=acc)
-
-    def validation_end(self, outputs):
-        reduced_outputs = {}
-        for k in outputs[0]:
-            for o in outputs:
-                reduced_outputs[k] = reduced_outputs.get(k, []) + [o[k]]
-
-        for k in reduced_outputs:
-            reduced_outputs[k] = torch.stack(reduced_outputs[k]).mean()
-
-        reduced_outputs.update(
-            dict(log=reduced_outputs.copy(), progress_bar=reduced_outputs.copy())
-        )
-
-        return reduced_outputs
+    # def validation_step(self, batch, batch_idx):
+    #     pc, labels = batch
+    #
+    #     logits = self.forward(pc)
+    #     loss = F.cross_entropy(logits, labels)
+    #     acc = (torch.argmax(logits, dim=1) == labels).float().mean()
+    #
+    #     return dict(val_loss=loss, val_acc=acc)
+    #
+    # def validation_end(self, outputs):
+    #     reduced_outputs = {}
+    #     for k in outputs[0]:
+    #         for o in outputs:
+    #             reduced_outputs[k] = reduced_outputs.get(k, []) + [o[k]]
+    #
+    #     for k in reduced_outputs:
+    #         reduced_outputs[k] = torch.stack(reduced_outputs[k]).mean()
+    #
+    #     reduced_outputs.update(
+    #         dict(log=reduced_outputs.copy(), progress_bar=reduced_outputs.copy())
+    #     )
+    #
+    #     return reduced_outputs
 
     # def configure_optimizers(self):
     #     lr_lbmd = lambda _: max(
