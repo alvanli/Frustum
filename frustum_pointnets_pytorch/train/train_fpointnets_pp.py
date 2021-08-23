@@ -258,8 +258,8 @@ def train():
     blue = lambda x: '\033[94m' + x + '\033[0m'
 
     # set model
-    if FLAGS.model == 'frustum_pointnets_v1_old':
-        from models.frustum_pointnets_v1_old import FrustumPointNetv1
+    if FLAGS.model == 'frustum_pointnets_v1_pp':
+        from models.frustum_pointnets_v1_pp import FrustumPointNetv1
         FrustumPointNet = FrustumPointNetv1(n_classes=n_classes).cuda()
 
     if FLAGS.model == "frustum_pointnets_v1":
