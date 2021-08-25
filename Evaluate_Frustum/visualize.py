@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 import open3d as o3d
 from tqdm import tqdm
 
-WEIGHT_PATH = "/Weights/default_carpedcyc_kitti_2021-08-13-01-512pts/acc0.644236-epoch144.pth"
+WEIGHT_PATH = "/home/aldec/Data/WAT/Weights/default_carpedcyc_kitti_2021-08-13-01-512pts/acc0.644236-epoch144.pth"
 
 def class2angle(pred_cls, residual, num_class, to_label_format=True):
     ''' Inverse function to angle2class.
@@ -181,7 +181,7 @@ if __name__ == '__main__':
     #     overwritten_data_path='kitti/frustum_'+'caronly'+'_'+'val'+'.pickle')  # or carpedcyc
     TRAIN_DATASET = provider.FrustumDataset(npoints=NUM_POINT, split='train',
         rotate_to_center=True, one_hot=True,
-        overwritten_data_path='/mnt/wato-drive/KITTI/pickle/frustum_'+'carpedcyc'+'_'+'train'+'.pickle')  # or carpedcyc
+        overwritten_data_path='/home/aldec/Data/WAT/OG_Frustum_Github/Evaluate_Frustum/kitti/frustum_carpedcyc_train.pickle') #'/mnt/wato-drive/KITTI/pickle/frustum_'+'carpedcyc'+'_'+'train'+'.pickle')  # or carpedcyc
     train_dataloader = DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE, shuffle=False, \
                                  num_workers=8, pin_memory=True)
 
